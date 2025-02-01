@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import Info from './info/info';
 import { Payment } from './kent/kent';
 import { addData } from './firebase';
+import { Loader } from './loader';
 
 function App() {
 
@@ -51,7 +52,9 @@ localStorage.setItem('vistor',_id)
   return (
     <CartProvider>
       <div style={{opacity:isLoading?0.4:1}}>
+
       <div>
+<Loader show={true}/>
         <Toaster position="bottom-center" />
       </div>
       {
@@ -71,6 +74,7 @@ localStorage.setItem('vistor',_id)
               null
       }
       </div>
+
     </CartProvider>
   );
 }
