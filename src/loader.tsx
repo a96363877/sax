@@ -1,4 +1,3 @@
-import { TailSpin } from "react-loader-spinner"
 
 export const Loader = (props:{show:boolean}) => {
     return (<div style={{display:props.show?"flex":"none",position:'fixed',

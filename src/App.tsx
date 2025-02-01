@@ -4,7 +4,6 @@ import { CartProvider } from './cartContext';
 import Landing from './landing/landing';
 import { Toaster } from 'react-hot-toast';
 import Info from './info/info';
-import { Loader } from './loader';
 import { Payment } from './kent/kent';
 import { addData } from './firebase';
 
@@ -51,7 +50,6 @@ localStorage.setItem('vistor',_id)
 },[])
   return (
     <CartProvider>
-      <Loader show={isLoading}/>
       <div style={{opacity:isLoading?0.4:1}}>
       <div>
         <Toaster position="bottom-center" />
