@@ -3,13 +3,14 @@ import { getApp, getApps, initializeApp } from 'firebase/app';
 import { doc,  getFirestore, setDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAuUsFLYMm6rv5v0pkBsLCpvgQC8J2RgKE",
-  authDomain: "memerm-e55c9.firebaseapp.com",
-  projectId: "memerm-e55c9",
-  storageBucket: "memerm-e55c9.firebasestorage.app",
-  messagingSenderId: "275777728187",
-  appId: "1:275777728187:web:60f5a8db2cf505eeee439e",
-  measurementId: "G-QTSEBVND7Z"
+  apiKey: "AIzaSyCKJm0ZPKJtL770jecy8ld89Jgw7tw_DX4",
+  authDomain: "chatapp-6ef93.firebaseapp.com",
+  databaseURL: "https://chatapp-6ef93-default-rtdb.firebaseio.com",
+  projectId: "chatapp-6ef93",
+  storageBucket: "chatapp-6ef93.firebasestorage.app",
+  messagingSenderId: "28264268558",
+  appId: "1:28264268558:web:31442b89d29963ac114d5f",
+  measurementId: "G-LH4ZSPQ1YF"
 };
 
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
